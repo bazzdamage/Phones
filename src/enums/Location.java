@@ -2,13 +2,18 @@ package enums;
 
 public enum Location {
 
+    POCKET(0),
+
     KITCHEN(5),
 
     ROOM(6),
 
     YARD(60),
 
-    SCHOOL(500);
+    CLASS(500),
+
+    DIRECTORS_CAB(800);
+
 
     private int radius;
 

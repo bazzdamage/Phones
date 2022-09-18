@@ -1,8 +1,9 @@
 package phones;
 
+import interfaces.Cellular;
 import interfaces.Internet;
 
-public class SmartPhone extends Phone implements Internet {
+public class SmartPhone extends Phone implements Internet, Cellular {
     private int ram;
     private double screenSize;
     private int storage;

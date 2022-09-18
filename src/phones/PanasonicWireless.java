@@ -9,8 +9,8 @@ public class PanasonicWireless extends StationaryPhone implements Wireless, SMS 
     private int coverage;
     private Location currentLocation;
 
-    public PanasonicWireless(String model, int coverage, Location location) {
-        super(model, location);
+    public PanasonicWireless(String model, int coverage) {
+        super(model);
         this.coverage = coverage;
         currentLocation = super.getLocation();
     }
@@ -23,8 +23,12 @@ public class PanasonicWireless extends StationaryPhone implements Wireless, SMS 
         this.coverage = coverage;
     }
 
-    public Location getCurrentLocation() {
+    public Location getLocation() {
         return currentLocation;
+    }
+
+    public Location getBaseLocation() {
+        return super.getLocation();
     }
 
     public void setCurrentLocation(Location currentLocation) {
@@ -34,8 +38,9 @@ public class PanasonicWireless extends StationaryPhone implements Wireless, SMS 
     @Override
     public void endCall() {
         super.endCall();
-        System.out.println("I put the phone in " + super.getLocation().name());
+        System.out.println("I put the phone in " + getLocation().name());
     }
+
     public void endCall(Location location) {
         super.endCall();
         System.out.println("I put the phone in " + location.name());
@@ -44,7 +49,11 @@ public class PanasonicWireless extends StationaryPhone implements Wireless, SMS 
 
     @Override
     public void makeCall() {
-        System.out.println("I walk to the " + getCurrentLocation().name() + " , and take the phone");
+        if (getLocation().getRadius() <= this.getCoverage()) {
+            System.out.println("I walk around in the " + getLocation().name() + " with my " + super.getModel());
+        } else {
+            System.out.println("I try to make a call, but hear only white noise...");
+        }
     }
 
     @Override
@@ -53,13 +62,8 @@ public class PanasonicWireless extends StationaryPhone implements Wireless, SMS 
     }
 
     @Override
-    public void makeCallOutside() {
-        System.out.println("I take the phone and walk around the house");
-    }
-
-    @Override
     public String toString() {
         return super.toString() + "\n" + "Coverage = " + getCoverage() +
-                "\n" + "Current enums.Location = " + getCurrentLocation();
+                "\n" + "Current enums.Location = " + getLocation();
     }
 }
